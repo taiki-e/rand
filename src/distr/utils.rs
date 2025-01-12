@@ -257,8 +257,10 @@ pub(crate) trait IntAsSIMD: Sized {
     }
 }
 
+impl IntAsSIMD for u16 {}
 impl IntAsSIMD for u32 {}
 impl IntAsSIMD for u64 {}
+impl IntAsSIMD for u128 {}
 
 pub(crate) trait BoolAsSIMD: Sized {
     fn any(self) -> bool;
@@ -330,8 +332,12 @@ macro_rules! scalar_float_impl {
     };
 }
 
+#[cfg(rand_unstable_f16)]
+scalar_float_impl!(f16, u16);
 scalar_float_impl!(f32, u32);
 scalar_float_impl!(f64, u64);
+#[cfg(rand_unstable_f128)]
+scalar_float_impl!(f128, u128);
 
 #[cfg(feature = "simd_support")]
 macro_rules! simd_impl {

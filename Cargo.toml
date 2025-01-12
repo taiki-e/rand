@@ -83,3 +83,11 @@ rand_pcg = { path = "rand_pcg", version = "=0.9.0-beta.1" }
 # Only to test serde
 bincode = "1.2.1"
 rayon = "1.7"
+
+[lints]
+workspace = true
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(rand_unstable_f16,rand_unstable_f128)',
+] }

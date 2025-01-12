@@ -153,8 +153,12 @@ macro_rules! float_impls {
     }
 }
 
+#[cfg(rand_unstable_f16)]
+float_impls! { , f16, u16, f16, u16, 10, 15 }
 float_impls! { , f32, u32, f32, u32, 23, 127 }
 float_impls! { , f64, u64, f64, u64, 52, 1023 }
+#[cfg(rand_unstable_f128)]
+float_impls! { , f128, u128, f128, u128, 112, 16383 }
 
 #[cfg(feature = "simd_support")]
 float_impls! { feature = "simd_support", f32x2, u32x2, f32, u32, 23, 127 }
