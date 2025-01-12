@@ -83,3 +83,11 @@ libc = { version = "0.2.22", optional = true, default-features = false }
 rand_pcg = { path = "rand_pcg", version = "0.3.0" }
 # Only to test serde1
 bincode = "1.2.1"
+
+[lints]
+workspace = true
+
+[workspace.lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(rand_unstable_f16,rand_unstable_f128)',
+] }

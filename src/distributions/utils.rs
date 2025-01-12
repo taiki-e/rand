@@ -297,7 +297,7 @@ macro_rules! scalar_float_impl {
 
             #[inline]
             fn is_infinite(self) -> bool {
-                self == ::core::$ty::INFINITY || self == ::core::$ty::NEG_INFINITY
+                self == $ty::INFINITY || self == $ty::NEG_INFINITY
             }
 
             #[inline]
@@ -356,9 +356,12 @@ macro_rules! scalar_float_impl {
     };
 }
 
+#[cfg(rand_unstable_f16)]
+scalar_float_impl!(f16, u16);
 scalar_float_impl!(f32, u32);
 scalar_float_impl!(f64, u64);
-
+#[cfg(rand_unstable_f128)]
+scalar_float_impl!(f128, u128);
 
 #[cfg(feature = "simd_support")]
 macro_rules! simd_impl {

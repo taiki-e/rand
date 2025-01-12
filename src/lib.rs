@@ -51,6 +51,8 @@
 #![no_std]
 #![cfg_attr(feature = "simd_support", feature(stdsimd))]
 #![cfg_attr(doc_cfg, feature(doc_cfg))]
+#![cfg_attr(rand_unstable_f16, feature(f16))]
+#![cfg_attr(rand_unstable_f128, feature(f128))]
 #![allow(
     clippy::float_cmp,
     clippy::neg_cmp_op_on_partial_ord,

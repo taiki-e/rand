@@ -139,19 +139,22 @@ macro_rules! float_impls {
                 // Transmute-based method; 23/52 random bits; (0, 1) interval.
                 // We use the most significant bits because for simple RNGs
                 // those are usually more random.
-                use core::$f_scalar::EPSILON;
                 let float_size = mem::size_of::<$f_scalar>() as u32 * 8;
 
                 let value: $uty = rng.gen();
                 let fraction = value >> (float_size - $fraction_bits);
-                fraction.into_float_with_exponent(0) - (1.0 - EPSILON / 2.0)
+                fraction.into_float_with_exponent(0) - (1.0 - $f_scalar::EPSILON / 2.0)
             }
         }
     }
 }
 
+#[cfg(rand_unstable_f16)]
+float_impls! { f16, u16, f16, u16, 10, 15 }
 float_impls! { f32, u32, f32, u32, 23, 127 }
 float_impls! { f64, u64, f64, u64, 52, 1023 }
+#[cfg(rand_unstable_f128)]
+float_impls! { f128, u128, f128, u128, 112, 16383 }
 
 #[cfg(feature = "simd_support")]
 float_impls! { f32x2, u32x2, f32, u32, 23, 127 }

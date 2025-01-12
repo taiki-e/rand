@@ -995,8 +995,12 @@ macro_rules! uniform_float_impl {
     };
 }
 
+#[cfg(rand_unstable_f16)]
+uniform_float_impl! { f16, u16, f16, u16, 16 - 10 }
 uniform_float_impl! { f32, u32, f32, u32, 32 - 23 }
 uniform_float_impl! { f64, u64, f64, u64, 64 - 52 }
+#[cfg(rand_unstable_f128)]
+uniform_float_impl! { f128, u128, f128, u128, 128 - 112 }
 
 #[cfg(feature = "simd_support")]
 uniform_float_impl! { f32x2, u32x2, f32, u32, 32 - 23 }
@@ -1184,7 +1188,7 @@ mod tests {
             _ => panic!("`UniformDurationMode` was not serialized/deserialized correctly")
         }
     }
-    
+
     #[test]
     #[cfg(feature = "serde1")]
     fn test_uniform_serialization() {
